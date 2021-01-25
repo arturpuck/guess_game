@@ -6,7 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use App\Rules\NumberIsInCorrectRange;
-use App\Rules\GameIsValid;
+use App\Rules\GameHasActiveStatus;
+use App\Rules\GameIDIsNotToOld;
 
 
 class GuessNumberRequest extends FormRequest
@@ -29,7 +30,7 @@ class GuessNumberRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['required', 'string', new GameIsValid()],
+            'id' => ['bail','required', 'string', 'exists:games', new GameHasActiveStatus(), new GameIDIsNotToOld()],
             'number' => ['required', 'integer', new NumberIsInCorrectRange(intval($this->id))]
         ];
     }

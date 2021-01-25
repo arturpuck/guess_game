@@ -9,7 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 Class CreateGameHandler {
 
     public function handle(CreateNewGameRequest $request):Response{
-         $data = array_merge($request->all(), ['number' => rand($request->get('from'), $request->get('to'))]);
+         $from = $request->get('from') ?? 1;
+         $to = $request->get('from') ?? 9;
+         $data = array_merge($request->all(), ['number' => rand($from,$to)]);
          $game = Game::create($data);
          return response()->json(['id' => strval($game->id)],200);
     }
