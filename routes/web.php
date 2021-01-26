@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/new', 'App\Http\Controllers\GameController@createNew');
+Route::get('/guess', 'App\Http\Controllers\GameController@guessNumber');
+Route::get('/scores', 'App\Http\Controllers\GameController@showScores');
