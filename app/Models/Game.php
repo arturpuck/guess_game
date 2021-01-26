@@ -34,7 +34,9 @@ class Game extends Model
 
    public function getPlaceAttribute():int{
 
-       $bestScores = self::bestScores()->get();
+       $bestScores =  self::select('player_name', 'score', 'id')
+                            ->whereNotNull('score')                    
+                            ->orderBy('score', 'DESC');
        $place = 0;
 
        $bestScores->each(function ($item, $key) use (&$place){
@@ -48,11 +50,4 @@ class Game extends Model
         return $place;
    }
 
-   public static function bestScores(){
-
-       return self::select('player_name', 'score')
-                    ->whereNotNull('score')                    
-                    ->limit(30)
-                    ->orderBy('score', 'DESC');
-   }
 }

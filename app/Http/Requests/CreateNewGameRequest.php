@@ -31,7 +31,7 @@ class CreateNewGameRequest extends FormRequest
             'player_name' => ['nullable', 'string'],
             'from' =>  ['nullable', 'integer', new FromRule($this->to)],
             'to' => ['nullable', new ToRule($this->from)],
-            'attempts' => ['nullable', 'integer', 'min:0']
+            'attempts' => ['nullable', 'integer', 'min:1']
         ];
     }
 

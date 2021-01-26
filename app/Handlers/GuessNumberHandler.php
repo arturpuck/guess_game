@@ -19,9 +19,10 @@ Class GuessNumberHandler {
          if($game->number == $request->get('number')){
              $game->game_status = 'won';
              $score = $game->player_score;
-             $response['score'] = $score;
-             $response['place'] = $game->place;
              $game->score = $score;
+             $response['score'] = $score;
+             $game->save();
+             $response['place'] = $game->place;
          }
          else{
 
@@ -29,9 +30,10 @@ Class GuessNumberHandler {
                 $game->game_status = 'lost';
                 $response['number'] = $game->number;
              }
+
+             $game->save();
          }
 
-         $game->save();
          $response['status'] = $game->game_status;
          return response()->json($response,200);
     }

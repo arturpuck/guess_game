@@ -31,7 +31,7 @@ class GuessNumberRequest extends FormRequest
     {
         return [
             'id' => ['bail','required', 'string', 'exists:games', new GameHasActiveStatus(), new GameIDIsNotToOld()],
-            'number' => ['required', 'integer', new NumberIsInCorrectRange(intval($this->id))]
+            'number' => ['bail', 'required', 'integer', new NumberIsInCorrectRange(intval($this->id))]
         ];
     }
 

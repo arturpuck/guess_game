@@ -10,7 +10,7 @@ Class CreateGameHandler {
 
     public function handle(CreateNewGameRequest $request):Response{
          $from = $request->get('from') ?? 1;
-         $to = $request->get('from') ?? 9;
+         $to = $request->get('to') ?? 9;
          $data = array_merge($request->all(), ['number' => rand($from,$to)]);
          $game = Game::create($data);
          return response()->json(['id' => strval($game->id)],200);
